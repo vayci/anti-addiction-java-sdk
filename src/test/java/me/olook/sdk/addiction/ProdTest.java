@@ -13,7 +13,10 @@ import java.util.UUID;
 
 import static org.junit.Assert.*;
 
-public class AntiAddictionClientTest {
+/**
+ * 正式环境测试用例
+ */
+public class ProdTest {
 
     private AntiAddictionClient antiAddictionClient;
 
