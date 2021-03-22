@@ -1,5 +1,15 @@
 # 网络游戏防沉迷系统服务端Java SDK
 
+## POM依赖
+
+```xml
+<dependency>
+  <groupId>me.olook</groupId>
+  <artifactId>anti-addiction-java-sdk</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
+
 ## 使用示例
 
 ```java

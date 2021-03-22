@@ -6,7 +6,7 @@
 
     <groupId>me.olook</groupId>
     <artifactId>anti-addiction-java-sdk</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <description>网络游戏防沉迷实名认证系统Java SDK</description>
 
     <dependencies>
