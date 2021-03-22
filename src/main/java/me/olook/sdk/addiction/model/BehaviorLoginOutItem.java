@@ -3,7 +3,7 @@ package me.olook.sdk.addiction.model;
 /**
  * @author Red
  */
-public class BehaviorLoginOutRequest {
+public class BehaviorLoginOutItem {
 
     private Integer no;
 
@@ -74,4 +74,5 @@ public class BehaviorLoginOutRequest {
     public void setPi(String pi) {
         this.pi = pi;
     }
+
 }

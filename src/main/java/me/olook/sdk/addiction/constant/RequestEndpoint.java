@@ -8,7 +8,7 @@ public class RequestEndpoint {
     /**
      * 实名认证
      */
-    public static final String AUTHENTICATION_CHECK_TEST = "https://api.wlc.nppa.gov.cn/idcard/authentication/check";
+    public static final String AUTHENTICATION_CHECK = "https://api.wlc.nppa.gov.cn/idcard/authentication/check";
 
     /**
      * 实名认证结果查询

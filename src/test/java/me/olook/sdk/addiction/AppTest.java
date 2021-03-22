@@ -2,7 +2,7 @@ package me.olook.sdk.addiction;
 
 import me.olook.sdk.addiction.model.AuthenticationCheckRequest;
 import me.olook.sdk.addiction.model.AuthenticationQueryRequest;
-import me.olook.sdk.addiction.model.BehaviorLoginOutRequest;
+import me.olook.sdk.addiction.model.BehaviorLoginOutItem;
 import me.olook.sdk.addiction.request.ClientHelper;
 import me.olook.sdk.addiction.security.AES;
 import me.olook.sdk.addiction.security.HMAC;
@@ -16,6 +16,10 @@ import java.net.URL;
 import java.util.*;
 
 public class AppTest {
+
+    private static final String APP_ID = "";
+    private static final String BIZ_ID = "";
+    private static final String SECRET_KEY = "";
 
     /**
      * {"errcode":0,"errmsg":"OK","data":{"result":{"status":0,"pi":"1fffbjzos82bs9cnyj1dna7d6d29zg4esnh99u"}}}
@@ -37,19 +41,19 @@ public class AppTest {
         request.setIdNum("110000190201010009");
         request.setName("某二一");
 
-        String encrypt = AES.gcmEncrypt(new Gson().toJson(request), "");
+        String encrypt = AES.gcmEncrypt(new Gson().toJson(request), SECRET_KEY);
         String json = "{\"data\":\""+encrypt+"\"}";
 
         URL url = new URL(RequestTestEndpoint.AUTHENTICATION_CHECK);
         OkHttpClient client = ClientHelper.getOkHttpClient(url.getHost(), url.getPort(), runtime);
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.addHeader("Content-Type","application/json;charset=utf-8");
-        requestBuilder.addHeader("appId","");
-        requestBuilder.addHeader("bizId","");
+        requestBuilder.addHeader("appId",APP_ID);
+        requestBuilder.addHeader("bizId",BIZ_ID);
         String time = System.currentTimeMillis()+"";
         requestBuilder.addHeader("timestamps",time);
         requestBuilder.addHeader("sign",
-                HMAC.sign("","",time,"",new HashMap<>(),json));
+                HMAC.sign(APP_ID,BIZ_ID,time,SECRET_KEY,new HashMap<>(),json));
 
         Response response = client.newCall(requestBuilder.url(url)
                 .post(RequestBody.create(MediaType.parse("application/json;charset=utf-8"),json))
@@ -69,7 +73,8 @@ public class AppTest {
      *
      * {"errcode":0,"errmsg":"OK","data":{"result":{"status":2,"pi":null}}}
      */
-    private void query() throws Exception {
+    @Test
+    public void query() throws Exception {
         Map<String,Object> runtime = new HashMap<>();
         runtime.put("ignoreSSL",true);
         runtime.put("connectTimeout",4000);
@@ -88,12 +93,12 @@ public class AppTest {
         OkHttpClient client = ClientHelper.getOkHttpClient(url.getHost(), url.getPort(), runtime);
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.addHeader("Content-Type","application/json;charset=utf-8");
-        requestBuilder.addHeader("appId","");
-        requestBuilder.addHeader("bizId","");
+        requestBuilder.addHeader("appId",APP_ID);
+        requestBuilder.addHeader("bizId",BIZ_ID);
         String time = System.currentTimeMillis()+"";
         requestBuilder.addHeader("timestamps",time);
         requestBuilder.addHeader("sign",
-                HMAC.sign("","",time,"",map,""));
+                HMAC.sign(APP_ID,BIZ_ID,time,SECRET_KEY,map,""));
 
         Response response = client.newCall(requestBuilder.url(url+"?ai="+ai)
                 .get()
@@ -111,7 +116,8 @@ public class AppTest {
      * {"errcode":0,"errmsg":"ok"}
      * {"errcode":0,"errmsg":"OK"}
      */
-    private void data() throws Exception {
+    @Test
+    public void data() throws Exception {
         Map<String,Object> runtime = new HashMap<>();
         runtime.put("ignoreSSL",true);
         runtime.put("connectTimeout",4000);
@@ -120,7 +126,7 @@ public class AppTest {
 
         long currentTimeMillis = System.currentTimeMillis();
 
-        BehaviorLoginOutRequest request = new BehaviorLoginOutRequest();
+        BehaviorLoginOutItem request = new BehaviorLoginOutItem();
         request.setNo(1);
         request.setSi(UUID.randomUUID().toString().replace("-","").substring(0,32));
         request.setBt(1);
@@ -129,24 +135,24 @@ public class AppTest {
         request.setDi(UUID.randomUUID().toString().replace("-","").substring(0,32));
 
 
-        List<BehaviorLoginOutRequest> list = new ArrayList<>();
+        List<BehaviorLoginOutItem> list = new ArrayList<>();
         list.add(request);
-        Map<String, List<BehaviorLoginOutRequest>> co = new HashMap<>();
+        Map<String, List<BehaviorLoginOutItem>> co = new HashMap<>();
         co.put("collections",list);
 
-        String encrypt = AES.gcmEncrypt(new Gson().toJson(co), "");
+        String encrypt = AES.gcmEncrypt(new Gson().toJson(co), SECRET_KEY);
         String json = "{\"data\":\""+encrypt+"\"}";
 
         URL url = new URL(RequestTestEndpoint.BEHAVIOR_LOGIN_OUT);
         OkHttpClient client = ClientHelper.getOkHttpClient(url.getHost(), url.getPort(), runtime);
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.addHeader("Content-Type","application/json;charset=utf-8");
-        requestBuilder.addHeader("appId","");
-        requestBuilder.addHeader("bizId","");
+        requestBuilder.addHeader("appId",APP_ID);
+        requestBuilder.addHeader("bizId",BIZ_ID);
         long timestamps = System.currentTimeMillis();
         requestBuilder.addHeader("timestamps",timestamps+"");
         requestBuilder.addHeader("sign",
-                HMAC.sign("","",timestamps+"","",new HashMap<>(),json));
+                HMAC.sign(APP_ID,BIZ_ID,timestamps+"",SECRET_KEY,new HashMap<>(),json));
 
         Response response = client.newCall(requestBuilder.url(url)
                 .post(RequestBody.create(MediaType.parse("application/json;charset=utf-8"),json))
