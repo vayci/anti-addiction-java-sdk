@@ -1,7 +1,5 @@
 package me.olook.sdk.addiction.model;
 
-import java.util.Map;
-
 /**
  * @author Red
  */
@@ -36,12 +34,6 @@ public class AuthenticationCheckRequest implements IClientRequest{
     public void setIdNum(String idNum) {
         this.idNum = idNum;
     }
-
-    @Override
-    public Map<String, String> toParamMap() {
-        return null;
-    }
-
 
     public static final class builder {
         private String ai;

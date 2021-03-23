@@ -30,6 +30,10 @@ public class DefaultClient {
 
     private Map<String,Object> clientConfigMap;
 
+    public DefaultClient(ClientContext clientContext) {
+        this.clientContext = clientContext;
+    }
+
     public DefaultClient(ClientContext clientContext, IClientConfig clientConfig) {
         this.clientContext = clientContext;
         this.clientConfigMap = clientConfig.toConfigMap();

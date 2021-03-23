@@ -1,7 +1,6 @@
 package me.olook.sdk.addiction.model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Red
@@ -17,10 +16,5 @@ public class BehaviorLoginOutListRequest implements IClientRequest{
 
     public void setCollections(List<BehaviorLoginOutItem> collections) {
         this.collections = collections;
-    }
-
-    @Override
-    public Map<String, String> toParamMap() {
-        return null;
     }
 }

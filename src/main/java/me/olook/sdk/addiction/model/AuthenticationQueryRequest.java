@@ -1,7 +1,5 @@
 package me.olook.sdk.addiction.model;
 
-import java.util.Map;
-
 /**
  * @author Red
  */
@@ -17,8 +15,4 @@ public class AuthenticationQueryRequest implements IClientRequest{
         this.ai = ai;
     }
 
-    @Override
-    public Map<String, String> toParamMap() {
-        return null;
-    }
 }
